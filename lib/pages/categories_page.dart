@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:notsy/widgets/bars.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({Key? key}) : super(key: key);
@@ -67,7 +68,8 @@ class CategoriesPage extends StatelessWidget {
                   ))
                 ]
             )
-        )
+        ),
+        bottomNavigationBar: BottomBar(),
     );
   }
 }

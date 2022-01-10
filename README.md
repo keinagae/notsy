@@ -1,6 +1,18 @@
 # notsy
 
-A awesom note application
+A awesom Fun note application (Not Complete)
+
+## For Design please follow Link Bellow
+- [Design](https://dribbble.com/shots/16811788-Notes-app)
+
+
+## Current Application ScreenShots
+
+![Start Screen](./resources/Screenshot_1641821828.png)"Text to show on mouseover").
+
+![Start Screen](./resources/Screenshot_1641821864.png)"Text to show on mouseover").
+
+![Start Screen](./resources/Screenshot_1641821872.png)"Text to show on mouseover").
 
 ## Getting Started
 
