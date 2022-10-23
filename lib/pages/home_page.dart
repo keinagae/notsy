@@ -2,14 +2,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:flutter/services.dart';
 import 'package:iconsax/iconsax.dart';
 import 'dart:math' as math;
 
 import 'package:notsy/data/models/note.dart' as model;
 import 'package:notsy/data/models/category.dart' as categoryModel;
+import 'package:notsy/pages/note_page.dart';
 import 'package:notsy/utils/painters.dart';
 import 'package:notsy/widgets/bars.dart';
 import 'package:notsy/widgets/controls.dart';
+
+import '../widgets/scafold.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -48,28 +52,25 @@ class HomePage extends StatelessWidget {
           ])
     ];
 
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        leading: Icon(Iconsax.note_214),
-        title: Text(
-          "Notsy",
-        ),
-        actions: [
-          IconButton(
-            onPressed: () {},
-            icon: Icon(Iconsax.search_status),
-            visualDensity: VisualDensity.compact,
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 10),
-            child: IconButton(
-                onPressed: () {},
-                icon: Icon(Iconsax.direct_notification),
-                visualDensity: VisualDensity.compact),
-          ),
-        ],
+    return NotsyScafold(
+      appBarLeading: Icon(Iconsax.note_214),
+      appBarTitle: Text(
+        "Notsy",
       ),
+      appBarActions: [
+        IconButton(
+          onPressed: () {},
+          icon: Icon(Iconsax.search_status),
+          visualDensity: VisualDensity.compact,
+        ),
+        Padding(
+          padding: const EdgeInsets.only(right: 10),
+          child: IconButton(
+              onPressed: () {},
+              icon: Icon(Iconsax.direct_notification),
+              visualDensity: VisualDensity.compact),
+        ),
+      ],
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 10),
         child: Column(
@@ -126,8 +127,8 @@ class HomePage extends StatelessWidget {
           ],
         ),
       ),
-      bottomNavigationBar: BottomBar(),
-      floatingActionButton: FloatingActionButton(
+      bottomBar: BottomBar(),
+      floatingButton: FloatingActionButton(
         onPressed: () {},
         backgroundColor: Colors.black,
         child: Icon(Iconsax.add),
@@ -143,96 +144,101 @@ class NoteListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        decoration: ShapeDecoration(
-            shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
-                side: note.isNew
-                    ? BorderSide(width: 2, color: Color(0xffff8b65))
-                    : BorderSide.none),
-            color: note.color),
-        child: Stack(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: [
-                  Text(
-                    note.title,
-                    style: Theme.of(context)
-                        .textTheme
-                        .subtitle1!
-                        .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
-                  ),
-                  if (note.isNew) ...[
-                    SizedBox(
-                      height: 20,
-                    ),
+    return InkWell(
+      onTap: (){
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>NotePage()));
+      },
+      child: Container(
+          decoration: ShapeDecoration(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                  side: note.isNew
+                      ? BorderSide(width: 2, color: Color(0xffff8b65))
+                      : BorderSide.none),
+              color: note.color),
+          child: Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.all(20),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
                     Text(
-                      note.description,
+                      note.title,
                       style: Theme.of(context)
                           .textTheme
-                          .bodyText1!
-                          .copyWith(color: Color(0xff7b7e83)),
+                          .subtitle1!
+                          .copyWith(fontWeight: FontWeight.w600, fontSize: 16),
                     ),
-                  ],
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Row(
-                    children: [
+                    if (note.isNew) ...[
                       SizedBox(
                         height: 20,
-                        child: ListView.separated(
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (ctx, index) => Text(
-                                  note.categories[index].name,
-                                  style: Theme.of(context)
-                                      .textTheme
-                                      .bodyText1!
-                                      .copyWith(
-                                          fontSize: 12,
-                                          color: Color(0xff99958a)),
-                                ),
-                            separatorBuilder: (ctx, index) => VerticalDivider(
-                                  width: 20,
-                                  thickness: 1,
-                                  color: Color(0xffd3d3d3),
-                                ),
-                            shrinkWrap: true,
-                            itemCount: note.categories.length),
                       ),
-                      Spacer(),
                       Text(
-                        "${note.dateTime.year}/${note.dateTime.month}/${note.dateTime.day}",
+                        note.description,
                         style: Theme.of(context)
                             .textTheme
                             .bodyText1!
-                            .copyWith(fontSize: 12, color: Color(0xff99958a)),
-                      )
+                            .copyWith(color: Color(0xff7b7e83)),
+                      ),
                     ],
-                  )
-                ],
-              ),
-            ),
-            if (note.isNew)
-              Positioned(
-                  right: -1,
-                  top: -1,
-                  child: Container(
-                    height: 50,
-                    width: 50,
-                    child: CustomPaint(
-                      painter: NotchPainter(),
-                      child: Transform.rotate(
-                        angle: -math.pi/4,
-                        origin: Offset(10,-20),
-                          child: Text("New",style: TextStyle(color: Colors.white),)),
+                    SizedBox(
+                      height: 20,
                     ),
-                  ))
-          ],
-        ));
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 20,
+                          child: ListView.separated(
+                              scrollDirection: Axis.horizontal,
+                              itemBuilder: (ctx, index) => Text(
+                                    note.categories[index].name,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .bodyText1!
+                                        .copyWith(
+                                            fontSize: 12,
+                                            color: Color(0xff99958a)),
+                                  ),
+                              separatorBuilder: (ctx, index) => VerticalDivider(
+                                    width: 20,
+                                    thickness: 1,
+                                    color: Color(0xffd3d3d3),
+                                  ),
+                              shrinkWrap: true,
+                              itemCount: note.categories.length),
+                        ),
+                        Spacer(),
+                        Text(
+                          "${note.dateTime.year}/${note.dateTime.month}/${note.dateTime.day}",
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(fontSize: 12, color: Color(0xff99958a)),
+                        )
+                      ],
+                    )
+                  ],
+                ),
+              ),
+              if (note.isNew)
+                Positioned(
+                    right: -1,
+                    top: -1,
+                    child: Container(
+                      height: 50,
+                      width: 50,
+                      child: CustomPaint(
+                        painter: NotchPainter(),
+                        child: Transform.rotate(
+                          angle: -math.pi/4,
+                          origin: Offset(10,-20),
+                            child: Text("New",style: TextStyle(color: Colors.white),)),
+                      ),
+                    ))
+            ],
+          )),
+    );
   }
 }
 

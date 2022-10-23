@@ -8,7 +8,7 @@ class BottomBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 80,
+      height: 60,
       decoration: ShapeDecoration(
           shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.only(
@@ -23,14 +23,14 @@ class BottomBar extends StatelessWidget {
           ],
           color: Colors.black),
       child: IconTheme(
-        data: IconThemeData(color: Colors.white, size: 50),
+        data: IconThemeData(color: Colors.white, size: 25),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
             IconButton(onPressed: () {}, icon: Icon(Iconsax.home_25)),
             IconButton(onPressed: () {}, icon: Icon(Iconsax.crown)),
             IconButton(onPressed: () {
-              Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (ctx)=>CategoriesPage()));
+              Navigator.of(context).push(MaterialPageRoute(builder: (ctx)=>CategoriesPage()));
             }, icon: Icon(Iconsax.menu)),
             IconButton(onPressed: () {}, icon: Icon(Iconsax.setting_2)),
           ],

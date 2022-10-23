@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:notsy/pages/home_page.dart';
+import 'package:notsy/widgets/scafold.dart';
 class SetupPage extends StatelessWidget {
   SetupPage({Key? key}):super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return NotsyScafold(
+      appBarTitle: null,
       body: DefaultTextStyle(
         style: TextStyle(color: Colors.white),
         child: Padding(
@@ -65,6 +67,7 @@ class SetupPage extends StatelessWidget {
           ),
         ),
       ),
+      bottomBar: null,
       backgroundColor: Theme.of(context)
           .primaryColor, // This trailing comma makes auto-formatting nicer for build methods.
     );

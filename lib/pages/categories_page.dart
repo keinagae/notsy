@@ -1,28 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:notsy/widgets/bars.dart';
+import 'package:notsy/widgets/scafold.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        backgroundColor: Colors.white,
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(
-            "Categories",
-            style: TextStyle(fontWeight: FontWeight.w600),
+    return NotsyScafold(
+      appBarTitle: Text(
+        "Categories",
+        style: TextStyle(fontWeight: FontWeight.w600),
+      ),
+        appBarActions: [
+          IconButton(
+            onPressed: () {},
+            icon: Icon(Iconsax.add_circle),
+            visualDensity: VisualDensity.compact,
           ),
-          actions: [
-            IconButton(
-              onPressed: () {},
-              icon: Icon(Iconsax.add_circle),
-              visualDensity: VisualDensity.compact,
-            ),
-          ],
-        ),
+        ],
         body: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20),
             child: Column(
@@ -69,7 +66,7 @@ class CategoriesPage extends StatelessWidget {
                 ]
             )
         ),
-        bottomNavigationBar: BottomBar(),
+        bottomBar: BottomBar(),
     );
   }
 }
